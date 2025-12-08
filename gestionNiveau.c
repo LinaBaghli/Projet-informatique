@@ -8,7 +8,7 @@
 #define DUREE 120000
 int niveau=1;
 
-lancerNiveau(int xcurseur, int ycurseur, int temps_restant) {
+void lancerNiveau(int xcurseur, int ycurseur, int temps_restant) {
 	xcurseur=LARGEUR/2;
 	ycurseur=HAUTEUR/2;
 	jeu(temps_restant);
