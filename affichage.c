@@ -21,3 +21,6 @@ void afficherTempsrestant(int tempsrestant){ //afficher le temps restant pour ch
     }
     printf("\nLe temps est termine !\n");
 }
+
+void aficherRegles(){
+    printf("======= Regles du jeu =======\n");
