@@ -30,7 +30,11 @@ void aficherRegles(){
     printf("Contrat 3 (niveau3) : 40 X 20 O 25 % 25 @ 20 &, 40 coups possibles en 1min30");
     printf("Chaque niveau peut être sauvegardé avec un pseudo utilisateur, afin d'y retourner plus tard.\n");
     printf("A vous de jouer !\n");
+}
 
+void afficherGrille (int largeur, int hauteur){
+
+}
 
 
 
