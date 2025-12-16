@@ -1,4 +1,5 @@
 void viderGrille ();
+void assurerGrilleJouable ();
 int verifierAbsencesFiduresInitiales ();
 void eliminerSuiteEnLigne(int ligne, int colonne, int taille);
 void eliminerSuiteEnColonne(int ligne, int colonne, int taille);
