@@ -51,7 +51,19 @@ void afficherGrille (char grille[HAUTEUR][LARGEUR]){
         printf("\n");
     }
 }
-
+void afficherGrille (char grille[HAUTEUR][LARGEUR]){
+    int i, j;
+    printf("#################\n");
+    //boucle pour parcourir les colonnes
+    for(i=0; i<HAUTEUR; i++){
+        //boucle pour parcourir les lignes
+        for(j=0; j<LARGEUR; j++){
+            printf("%c ", grille[i][j]); //affichage de la grille
+        }
+        printf("\n");
+    }
+    printf("#################\n");
+}
 
 
 
