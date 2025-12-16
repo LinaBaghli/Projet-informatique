@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <windows.h>
 #include <conio.h>
+#define HAUTEUR 10
+#define LARGEUR 9
 
 void gotoxy(int x, int y){
     COORD coord;
@@ -38,8 +40,16 @@ void afficherRegles(){
     printf("A vous de jouer !\n");
 }
 
-void afficherGrille (int largeur, int hauteur){
-
+void afficherGrille (char grille[HAUTEUR][LARGEUR]){
+    int i, j;
+//boucle pour parcourir les colonnes
+    for(i=0; i<HAUTEUR; i++){
+        //boucle pour parcourir les lignes
+        for(j=0; j<LARGEUR; j++){
+            printf("%c ", grille[i][j]); //affichage de la grille
+        }
+        printf("\n");
+    }
 }
 
 
