@@ -18,6 +18,7 @@
 #define TAILLE_BONUS_EXPLOSION 6     //Bonus imposé par la consigne
 
 char grille[HAUTEUR][LARGEUR];		//Déclaration de la variable globale grille (matrice de taille HAUTEUR*LARGEUR) utilisé dans la majorité des sous-programme de ce module
+
 typedef struct {
     int trouve;     // 0 = aucune suite, 1 = suite trouvée
     int ligne;
@@ -31,20 +32,12 @@ typedef struct{
     int colonne; 
 }Centrecroix; //structure à utiliser pour eliminer la croix
 
+typedef struct{
+    int trouve;
+    int ligne;
+    int colonne;
+}ResultatCarre; //structure à utiliser pour eliminer le carré
 
-void viderGrille() {
-	for (int i=0; i<HAUTEUR; i++) {
-		for (int j=0; j<LARGEUR; j++) {
-			grille[i][j] = 0;
-		}
-	}
-}
-
-int verifierAbsencesFiduresInitiales () {
-	if(detecterFigure != PAS_DE_FIGURE) {
-		return 1;
-	}
-}
 
 ResultatSuite detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
     int i, j;
@@ -71,12 +64,6 @@ ResultatSuite detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
 }
 
 
-eliminerSuiteEnLigne(int ligne, int colonne, int taille) { //utiliser resultatL
-	for (int i=0; i<taille; i++) {                      
-		grille[ligne][colonne + i] = 0; //Parcourir les cases de la suite de gauche à droite
-	}	
-}
-
 ResultatSuite detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
     int i, j;
     ResultatSuite resultatC = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
@@ -101,21 +88,26 @@ ResultatSuite detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
     return resultatC; //aucune suite trouvée
 }
 
-eliminerSuiteEnColonne(int ligne, int colonne, int taille) { //utiliser resultatC
-	for (int i=0; i<taille; i++) {
-		grille[ligne + i][colonne] = 0; //Parcourir les cases de la suite de haut en bas et affecter 0 à chacune de ces cases
-	}	
-}
+ResultatCarre detecterCarre(char grille[HAUTEUR][LARGEUR]){
+    int i, j;
+    ResultatCarre resultatCr = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    //boucle for pour parcourir les lignes donc la hauteur
+    for(i=0; i<HAUTEUR-3; i++){
+        //boucle for pour parcourir les colonnes donc la largeur
+        for(j=0; j<LARGEUR-3; j++){
 
-eliminerCarre (int ligne, int colonne) {
-	for (int i=0; i<TAILLE_CARRE; i++) {
-		grille[ligne][colonne + i] = 0;                 //Parcourir la ligne la plus haute du carre de gauche à droite et affecter 0 à chacune de ces cases
-		grille[ligne+TAILLE_CARRE-1][colonne + i] = 0;  //Parcourir la ligne la plus basse du carre de gauche à droite et affecter 0 à chacune de ces cases
-	}	
-	for (int i=0; i<TAILLE_CARRE; i++) {
-		grille[ligne + i][colonne] = 0;                 //Parcourir la ligne la plus à gauche du carre de haut en bas en affectant 0 à chacune de ces cases
-		grille[ligne + i][colonne+TAILLE_CARRE-1] = 0;  //Parcourir la ligne la plus à droite du carre de haut en bas en affectant 0 à chacune de ces cases
-	}
+            char c = grille[i][j]; //enregistrement du type d'item dans la variable c
+            if(c==' ') continue; //si la case est vide, on continue de chercher dans la grille
+
+            if(grille[i][j]== c && grille[i+1][j]== c && grille[i+2][j]== c && grille[i+3][j]== c && grille[i+3][j+1]== c && grille[i+3][j+2]== c && grille[i+3][j+3]== c && grille[i][j+1]== c && grille[i][j+2]== c && grille[i][j+3]== c && grille[i+1][j+3]== c && grille[i+2][j+3]== c){
+                resultatCr.trouve = 1; 
+                resultatCr.ligne = i; //ligne où se trouve la case en haut à gauche du carré
+                resultatCr.colonne = j; //colonne où se trouve la case en haut à gauche du carré
+                return resultatCr;
+            }
+        }
+    }
+    return resultatCr; //aucun carré trouvé
 }
 
 Centrecroix detecterCroix(char grille[HAUTEUR][LARGEUR]){
@@ -141,27 +133,9 @@ Centrecroix detecterCroix(char grille[HAUTEUR][LARGEUR]){
 }
 
 
-eliminerCroix (int ligne, int colonne) { //utiliser resultatCx
-	for (int i=0; i<TAILLE_CROIX; i++) {
-		grille[ligne][colonne + i - 2] = 0;				//Se placer au centre de la croix, aller 2 cases vers la gauche et parcourir les cases de gauche à droite en affectant 0 à chacune de ces cases
-	}	
-	for (int i=0; i<TAILLE_CROIX; i++) {
-		grille[ligne + i - 2][colonne] = 0;				//Se placer au centre de la croix, aller 2 cases vers la haut et parcourir les cases de gauche à droite en affectant 0 à chacune de ces cases
-	}	
-}
 
-eliminerFigure (int type, int ligne, int colonne, int taille) {			//Elimine la fonction adéquate en fonction du type de la figure
-	switch(type) {															
-	case SUITE_LIGNE : eliminerSuiteEnLigne (ligne, colonne, taille);
-		break;
-	case SUITE_COLONNE : eliminerSuiteEnColonne (ligne, colonne, taille);
-		break;
-	case CARRE : eliminerCarre(ligne, colonne);
-		break;
-	case CROIX : eliminerCroix (ligne, colonne);
-		break;
-	}
-}
+
+
 
 void appliquerGravite () {
 
