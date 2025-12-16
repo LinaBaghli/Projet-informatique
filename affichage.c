@@ -22,12 +22,9 @@ void afficherTempsrestant(int tempsrestant){ //afficher le temps restant pour ch
     printf("\nLe temps est termine !\n");
 }
 
-void aficherRegles(){
+void afficherRegles(){
     printf("======= Regles du jeu =======\n");
-    printf("Le but du jeu est d'éliminer le plus d'items possible lors d'un niveau. Il y a 3 niveaux par partie, pour chaque niveau, l'utilisateur doit répondre à un contrat : \n");
-    printf("Contrat 1 (niveau1) : 15 X 20 @, 30 coups possibles en 2 min\n");
-    printf("Contrat 2 (niveau2) : 30 X 15 O 20 % 20 &, 40 coups possibles en 1min 45");
-    printf("Contrat 3 (niveau3) : 40 X 20 O 25 % 25 @ 20 &, 40 coups possibles en 1min30");
+    printf("Le but du jeu est d'éliminer le plus d'items possible lors d'un niveau. Il y a 3 niveaux par partie, pour chaque niveau, l'utilisateur doit répondre à un contrat luiindiquant le nombre d'items à éliminer et le temps imparti.\n");
     printf("Chaque niveau peut être sauvegardé avec un pseudo utilisateur, afin d'y retourner plus tard.\n");
     printf("A vous de jouer !\n");
 }
