@@ -128,30 +128,60 @@ ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
 }
 
 
+ResultatFigure detecterFigure(char grille[HAUTEUR][LARGEUR]){
+    ResultatFigure resultatglobal = {0, -1, -1, 0, 0}; //initialisation à PAS_DE_FIGURE
+    //Croix
+    ResultatFigure s3 = detecterCroix(grille[HAUTEUR][LARGEUR]); //enregistrement resultatCx dans s3
+    if(s3.trouve){
+        resultatglobal.trouve = s3.trouve; 
+        resultatglobal.ligne = s3.ligne;
+        resultatglobal.colonne = s3.colonne;
+        resultatglobal.taille = s3.taille;
+        resultatglobal.type = s3.type; 
+        return resultatglobal; //structure identique à resultatCx
+    }
 
+    //Carre
+    ResultatFigure s4 = detecterCarre(grille[HAUTEUR][LARGEUR]); //enregistrement resultatCr dans s4
+    if(s4.trouve){
+        resultatglobal.trouve = s4.trouve; 
+        resultatglobal.ligne = s4.ligne;
+        resultatglobal.colonne = s4.colonne;
+        resultatglobal.taille = s4.taille;
+        resultatglobal.type = s4.type; 
+        return resultatglobal; //structre identique à resultatCr
+    }
 
+    //Suite en ligne 
+    ResultatFigure s1 = detecterSuiteEnLigne(grille[HAUTEUR][LARGEUR]); //enregistrement resultatL dans s1
+    if(s1.trouve){
+        resultatglobal.trouve = s1.trouve;
+        resultatglobal.ligne = s1.ligne;
+        resultatglobal.colonne = s1.colonne;
+        resultatglobal.taille = s1.taille;
+        resultatglobal.type = s1.type; 
+        return resultatglobal; //structure identique à resultatL
+    }
 
-
-void appliquerGravite () {
-
-
+    //Suite en colonne
+    ResultatFigure s2 = detecterSuiteEnColonne(grille[HAUTEUR][LARGEUR]); //enregistrement resultatC dans s2
+    if(s2.trouve){
+        resultatglobal.trouve = s2.trouve; 
+        resultatglobal.ligne = s2.ligne;
+        resultatglobal.colonne = s2.colonne;
+        resultatglobal.taille = s2.taille;
+        resultatglobal.type = s2.type; 
+        return resultatglobal; //structure identique à resultatC
+    }
+    return resultatglobal; //pas de figure détectée
 }
 
-void assurerGrilleJouable () {
-	
-}
 
-melangerItems() {									//Echange les coordonnées de deux items choisis aléatoirement
-	int l1, int c1, int l2, int c2, int temp;
-	l1 = rand() % HAUTEUR;
-	l2 = rand() % HAUTEUR;
-	c1 = rand() % LARGEUR;
-	c2 = rand() % LARGEUR;
 
-	temp = grille[l1][c1];							
-	grille[l1][c1] = grille[l2][c2];				
-	grille[l2][c2] = temp;
-}
+
+
+
+
 
 
 int jeu (int temps_restant) {
