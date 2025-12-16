@@ -24,24 +24,13 @@ typedef struct {
     int ligne;
     int colonne;
     int taille;
-} ResultatSuite; //structure à utiliser pour eliminer la suite
-
-typedef struct{
-    int trouve;
-    int ligne;
-    int colonne; 
-}Centrecroix; //structure à utiliser pour eliminer la croix
-
-typedef struct{
-    int trouve;
-    int ligne;
-    int colonne;
-}ResultatCarre; //structure à utiliser pour eliminer le carré
+	int type;	  //SUITE_LIGNE, SUITE_COLONNE, CARRE, CROIX
+} ResultatFigure; //structure à utiliser pour eliminer une figure
 
 
-ResultatSuite detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
+ResultatFigure detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    ResultatSuite resultatL = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatL = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
     for(i=0; i<HAUTEUR; i++){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
@@ -55,6 +44,7 @@ ResultatSuite detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
                     resultatL.ligne = i; //on veut le numero de la ligne où se trouve la suite
                     resultatL.colonne = j - compteur + 1;//on veut le numero de la première colonne où commence la suite
                     resultatL.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
+					resultatL.type = SUITE_LIGNE;
                     return resultatL;
                 }
             }else compteur = 1; // reinitialisation
@@ -64,9 +54,9 @@ ResultatSuite detecterSuiteEnLigne(char grille[HAUTEUR][LARGEUR]){
 }
 
 
-ResultatSuite detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
+ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    ResultatSuite resultatC = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatC = {0, -1, -1, 0}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les colonnes donc la largeur
     for(j=0; j<LARGEUR; j++){
         int compteur = 1; //sert à mesurer la longueur d’une suite d’items identiques consécutifs. s'incrémente quand deux cases consécutives sont égales
@@ -80,6 +70,7 @@ ResultatSuite detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
                     resultatC.ligne = i-compteur + 1; //on veut le numero de la première ligne où commence la suite
                     resultatC.colonne = j;
                     resultatC.taille = compteur; //taille de la suite (3, 4, 5 ou 6)
+					resultatL.type = SUITE_COLONNE;
                     return resultatC;
                 }
             }else compteur = 1; //reinitialisation si les deux cases consécutives ne sont pas identiques
@@ -88,7 +79,8 @@ ResultatSuite detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
     return resultatC; //aucune suite trouvée
 }
 
-ResultatCarre detecterCarre(char grille[HAUTEUR][LARGEUR]){
+
+ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
     int i, j;
     ResultatCarre resultatCr = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
@@ -110,7 +102,7 @@ ResultatCarre detecterCarre(char grille[HAUTEUR][LARGEUR]){
     return resultatCr; //aucun carré trouvé
 }
 
-Centrecroix detecterCroix(char grille[HAUTEUR][LARGEUR]){
+ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
     int i, j;
     Centrecroix resultatCx = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
