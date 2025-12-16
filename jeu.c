@@ -82,7 +82,7 @@ ResultatFigure detecterSuiteEnColonne(char grille[HAUTEUR][LARGEUR]){
 
 ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    ResultatCarre resultatCr = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatCr = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
     for(i=0; i<HAUTEUR-3; i++){
         //boucle for pour parcourir les colonnes donc la largeur
@@ -95,6 +95,7 @@ ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
                 resultatCr.trouve = 1; 
                 resultatCr.ligne = i; //ligne où se trouve la case en haut à gauche du carré
                 resultatCr.colonne = j; //colonne où se trouve la case en haut à gauche du carré
+				resultatCr.type = CARRE;
                 return resultatCr;
             }
         }
@@ -102,9 +103,10 @@ ResultatFigure detecterCarre(char grille[HAUTEUR][LARGEUR]){
     return resultatCr; //aucun carré trouvé
 }
 
+
 ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
     int i, j;
-    Centrecroix resultatCx = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
+    ResultatFigure resultatCx = {0, -1, -1}; //initialisation du retour de la fonction avec des valeurs invalides (-1) pour ne pas créer de bug
     //boucle for pour parcourir les lignes donc la hauteur
     for(i=2; i<HAUTEUR-2; i++){ //au minimum le centre de la croix se trouve à la ligne 2
         //boucle for pour parcourir les colonnes donc la largeur
@@ -117,6 +119,7 @@ ResultatFigure detecterCroix(char grille[HAUTEUR][LARGEUR]){
                 resultatCx.trouve = 1;
                 resultatCx.ligne = i; //ligne où se trouve la case centrale de la croix
                 resultatCx.colonne = j; //colonne où se trouve la case centrale de la croix
+				resultatCx.type = CROIX;
                 return resultatCx;
             }
         }
